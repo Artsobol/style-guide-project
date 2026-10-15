@@ -45,6 +45,10 @@ gh pr create --base main --head docs/accessibility \
 5. Проверьте jobs `validate` и `deploy` и откройте адрес из окружения `github-pages`.
 
 Ожидаемый адрес: [сайт проекта](https://artsobol.github.io/style-guide-project/).
+При текущей настройке аккаунта GitHub сообщает адрес `http://artsobol.me/style-guide-project/`.
+Для `https://artsobol.me` во время проверки выявлено несовпадение имени сертификата.
+Проверьте DNS и HTTPS в настройках основного Pages-сайта аккаунта, если домен должен использоваться.
+Настройка домена может влиять на другие проекты, поэтому она не менялась автоматически.
 Workflow PR только проверяет документы; ветка доступности публикуется после merge в `main`.
 Права `pages: write` и `id-token: write` заданы только заданию публикации.
 
