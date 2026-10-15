@@ -42,6 +42,7 @@ nav:
       - Структура документов: guide/structure.md
       - Markdown и оформление: guide/formatting.md
       - REST API и примеры Java: guide/api.md
+      - Безопасность документации и примеров API: guide/security.md
       - Проверка и сопровождение: guide/quality.md
   - Примеры:
       - Первый запрос: examples/quickstart.md
