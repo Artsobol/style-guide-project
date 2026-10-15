@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: Task API учебный контракт
+  version: 1.0.0
+  description: Контракт примеров документации. Сервер в репозиторий не входит.
+servers:
+  - url: https://api.example/api/v1
+    description: Демонстрационный адрес, замените адресом своего стенда
+paths:
+  /tasks:
+    post:
+      operationId: createTask
+      summary: Создание задачи
+      description: Требуется право tasks:write. Повтор запроса может создать дубль.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTask'
+            example:
+              title: Подготовить документацию
+      responses:
+        '201':
+          description: Задача создана
+          headers:
+            Location:
+              description: Относительный URI созданной задачи
+              schema:
+                type: string
+              example: /api/v1/tasks/42
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              example:
+                id: 42
+                title: Подготовить документацию
+                status: OPEN
+        '400':
+          description: Невалидное тело запроса
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              example:
+                type: about:blank
+                title: Bad Request
+                status: 400
+                detail: Укажите title длиной от 1 до 120 символов
+                instance: /api/v1/tasks
+        '401':
+          description: Отсутствует или недействителен токен
+          headers:
+            WWW-Authenticate:
+              schema:
+                type: string
+              example: Bearer
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Недостаточно прав
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '415':
+          description: Неподдерживаемый тип содержимого
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Title:
+      type: string
+      minLength: 1
+      maxLength: 120
+      pattern: '\S'
+      description: Не только пробелы. Длина 1–120 кодовых единиц UTF-16 до обрезки.
+      x-length-unit: UTF-16-code-units
+    CreateTask:
+      type: object
+      additionalProperties: false
+      required: [title]
+      properties:
+        title:
+          $ref: '#/components/schemas/Title'
+    Task:
+      type: object
+      additionalProperties: false
+      required: [id, title, status]
+      properties:
+        id:
+          type: integer
+          format: int64
+          minimum: 1
+        title:
+          $ref: '#/components/schemas/Title'
+        status:
+          type: string
+          enum: [OPEN]
+    Problem:
+      type: object
+      required: [type, title, status, detail, instance]
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference

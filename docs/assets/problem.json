@@ -1,0 +1,7 @@
+{
+  "type": "about:blank",
+  "title": "Bad Request",
+  "status": 400,
+  "detail": "Укажите title длиной от 1 до 120 символов",
+  "instance": "/api/v1/tasks"
+}

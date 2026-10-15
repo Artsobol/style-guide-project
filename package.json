@@ -1,0 +1,16 @@
+{
+  "name": "style-guide-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Стиль технической документации REST API на Java и Spring Boot",
+  "scripts": {
+    "lint:md": "markdownlint-cli2",
+    "check:examples": "python scripts/check_examples.py"
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "0.23.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
