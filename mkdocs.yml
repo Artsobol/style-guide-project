@@ -33,9 +33,7 @@ validation:
 nav:
   - Главная: index.md
   - Лабораторная работа:
-      - Ответы и проектирование: lab/report.md
       - Проверка на документах: lab/evaluation.md
-      - Сдача и взаимное ревью: lab/delivery.md
   - Руководство по стилю:
       - Область применения: guide/scope.md
       - Язык и термины: guide/language.md
